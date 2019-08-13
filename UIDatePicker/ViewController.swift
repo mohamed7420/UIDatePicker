@@ -10,10 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var textField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+    
+        datePicker.addTarget(self, action: #selector(makeChanged(datePicker:)), for: .valueChanged)
+        textField.inputView = datePicker
+        
     }
+    
+    
+    @objc func makeChanged(datePicker:UIDatePicker){
+        
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "MM/DD/YY"
+        textField.text = dateFormat.string(from: datePicker.date)
+        view.endEditing(true)
+        
+    }
+    
 
 
 }
